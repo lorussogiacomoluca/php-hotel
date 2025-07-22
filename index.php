@@ -50,6 +50,16 @@ if (isset($_GET['park_filter'])) {
   $hotels = $filtred;
 }
 
+if (isset($_GET['vote_filter'])) {
+  $filtred = [];
+  foreach ($hotels as $hotel) {
+    if ($hotel['vote'] >= $_GET['vote_filter']) {
+      $filtred[] = $hotel;
+    }
+  }
+  $hotels = $filtred;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -75,6 +85,12 @@ if (isset($_GET['park_filter'])) {
           <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault" name="park_filter">
             <label class="form-check-label" for="switchCheckDefault">Parking</label>
+          </div>
+          <div class="col p-4">
+            <label for="customRange3" class="form-label">Votazione:</label>
+            <output for="customRange4" id="rangeValue" aria-hidden="true"></output>
+
+            <input type="range" class="form-range" min="0" max="5" step="1" value="<?php echo $_GET['vote_filter'] ? $_GET['vote_filter'] : 3 ?>" id="customRange3" name="vote_filter">
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
@@ -114,6 +130,18 @@ if (isset($_GET['park_filter'])) {
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+  <script>
+    // This is an example script, please modify as needed
+    const rangeInput = document.getElementById('customRange3');
+    const rangeOutput = document.getElementById('rangeValue');
+
+    // Set initial value
+    rangeOutput.textContent = rangeInput.value;
+
+    rangeInput.addEventListener('input', function() {
+      rangeOutput.textContent = this.value;
+    });
+  </script>
 </body>
 
 </html>
