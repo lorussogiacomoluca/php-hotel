@@ -81,21 +81,36 @@ if (isset($_GET['vote_filter'])) {
     </div>
     <div class="row my-4">
       <div class="col">
-        <form class="d-flex justify-content-between align-items-center" method="GET" action="./index.php">
-          <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault" name="park_filter">
-            <label class="form-check-label" for="switchCheckDefault">Parking</label>
-          </div>
-          <div class="col p-4">
-            <label for="customRange3" class="form-label">Votazione:</label>
-            <output for="customRange4" id="rangeValue" aria-hidden="true"></output>
+        <form class="row g-3 align-items-center" method="GET" action="./index.php">
 
-            <input type="range" class="form-range" min="0" max="5" step="1" value="<?php echo $_GET['vote_filter'] ? $_GET['vote_filter'] : 3 ?>" id="customRange3" name="vote_filter">
+          <!-- Switch Parking -->
+          <div class="col-auto">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault" name="park_filter"
+                <?php if (isset($_GET['park_filter'])) echo 'checked'; ?>>
+              <label class="form-check-label" for="switchCheckDefault">Parking</label>
+            </div>
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+
+          <!-- Range votazione -->
+          <div class="col-auto d-flex align-items-center">
+            <label for="customRange3" class="form-label mb-0 me-2">Votazione:</label>
+            <input type="range" class="form-range" min="0" max="5" step="1"
+              value="<?php echo isset($_GET['vote_filter']) ? $_GET['vote_filter'] : 3; ?>"
+              id="customRange3" name="vote_filter"
+              oninput="document.getElementById('rangeValue').textContent = this.value" style="width: 150px;">
+            <output id="rangeValue" class="ms-2"><?php echo isset($_GET['vote_filter']) ? $_GET['vote_filter'] : 3; ?></output>
+          </div>
+
+          <!-- Submit button -->
+          <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+
         </form>
       </div>
     </div>
+
     <div class="row">
       <div class="col">
         <table class="table">
