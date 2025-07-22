@@ -74,8 +74,12 @@
       foreach($hotels as $hotel){
         echo '<tr>';
         foreach ($hotel as $key => $value) {
-          echo "
+          if($key === 'parking'){
+            echo $value ? '<td>✅</td> ' : '<td>❌</td> ';
+          } else{
+            echo "
           <td> $value </td>";
+          }
         }
         echo '<tr>';
       }
